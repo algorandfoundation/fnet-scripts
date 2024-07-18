@@ -2,7 +2,7 @@
 
 ## Fnet setup
 
-Set up algorand, preferably via apt repo & systemd
+Prerequisite: Set up algorand, preferably via apt repo & systemd
 
 Stop algorand: `sudo systemctl stop algorand`
 
