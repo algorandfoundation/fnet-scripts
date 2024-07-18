@@ -12,7 +12,9 @@ Start: `sudo systemctl start algorand`
 
 Check genesis ID from goal node `goal node status`
 
-**⚠️ IF you are not using systemd, you need to adapt update.sh to stop and start your node when the network resets**
+`update.sh` can be used to automate resetting your node along with the neetwork.
+
+**⚠️ IF you are not using systemd, you need to adapt `update.sh` to stop and start your node when the network resets**
 
 ## Table of Contents
 
@@ -32,14 +34,14 @@ Use this to override values if necessary
 
 1) Compares local genesis.json with the latest one from an fnet relay. If they are the same, exit
 2) Otherwise, stops algod (assumes systemd approach, `sudo systemctl stop algorand`)
-3) configures genesis and wipes existing data via configure.sh (see above)
+3) configures genesis and wipes existing data via `configure.sh` (see above)
 4) starts algod again (using systemd)
 
-**⚠️ IF you are not using systemd, you need to adapt this o stop and start your node when the network resets**
+**⚠️ IF you are not using systemd, you need to adapt this script to stop and start your node properly.**
 
 ## Automating reset
 
-You can run the update.sh script via cron in order to automate the node reset.
+You can run the `update.sh` script via cron in order to automate the node reset.
 
 **Important: Use the root account's crontab**
 

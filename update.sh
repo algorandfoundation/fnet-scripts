@@ -23,8 +23,14 @@ if [ "$remote_md5" = "$local_md5" ]; then
 else
     echo "Local genesis was $local_md5, remote was $remote_md5"
     echo "New genesis, nuke + restart"
+
+    # IF NOT USING SYSTEMD: change this to your "stop node" command
     sudo systemctl stop algorand
+
     ./configure.sh
+
+    # IF NOT USING SYSTEMD: change this to your "start node" command
     sudo systemctl start algorand
+
     echo "Restarted"
 fi
