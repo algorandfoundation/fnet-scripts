@@ -26,7 +26,7 @@ Use this to override values if necessary
 
 ### configure.sh
 
-**Needs to be run with root**
+**Needs to be run as root**
 
 1) DELETES network data directory, e.g. /var/lib/algorand/fnet-v1
 1) configures config.json with DNS Bootstrap ID
@@ -34,7 +34,7 @@ Use this to override values if necessary
 
 ### update.sh
 
-**Needs to be run with root**
+**Needs to be run as root**
 
 1) Compares local genesis.json with the latest one from an fnet relay. If they are the same, exit
 2) Otherwise, stops algod (assumes systemd approach, `sudo systemctl stop algorand`)
