@@ -36,3 +36,19 @@ Use this to override values if necessary
 4) starts algod again (using systemd)
 
 **⚠️ IF you are not using systemd, you need to adapt this o stop and start your node when the network resets**
+
+## Automating reset
+
+You can run the update.sh script via cron in order to automate the node reset.
+
+**Important: Use the root account's crontab**
+
+`sudo crontab -e`
+
+Add a line like this to the end. Make sure to change `/path/to/update.sh/` with your actual path to the file.
+
+```
+*/10 * * * * /path/to/update.sh
+```
+
+`*/10 * * * *` means "run this every 10 minutes". You can customize this interval using a tool [like this](https://crontab.guru)
