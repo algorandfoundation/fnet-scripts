@@ -44,3 +44,5 @@ function md5 {
 
 export -f get_genesis
 export -f md5
+
+get_genesis
