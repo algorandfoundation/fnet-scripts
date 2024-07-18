@@ -31,5 +31,4 @@ else
     exit 1
 fi
 
-echo "Success. Start algod with"
-echo "sudo systemctl start algorand"
+echo "Configure: OK"

@@ -24,10 +24,15 @@ else
     echo "Local genesis was $local_md5, remote was $remote_md5"
     echo "New genesis, nuke + restart"
 
+    echo "Stopping algod"
+
     # IF NOT USING SYSTEMD: change this to your "stop node" command
     sudo systemctl stop algorand
 
+    echo "Reconfiguring"
     ./configure.sh
+
+    echo "Starting algod"
 
     # IF NOT USING SYSTEMD: change this to your "start node" command
     sudo systemctl start algorand

@@ -26,11 +26,15 @@ Use this to override values if necessary
 
 ### configure.sh
 
+**Needs to be run with root**
+
 1) DELETES network data directory, e.g. /var/lib/algorand/fnet-v1
 1) configures config.json with DNS Bootstrap ID
 1) fetches and places genesis.json
 
 ### update.sh
+
+**Needs to be run with root**
 
 1) Compares local genesis.json with the latest one from an fnet relay. If they are the same, exit
 2) Otherwise, stops algod (assumes systemd approach, `sudo systemctl stop algorand`)
@@ -54,3 +58,48 @@ Add a line like this to the end. Make sure to change `/path/to/update.sh/` with 
 ```
 
 `*/10 * * * *` means "run this every 10 minutes". You can customize this interval using a tool [like this](https://crontab.guru)
+
+## Expected console output 
+
+### ./configure.sh
+
+```
+Using data dir: /var/lib/algorand
+Deleted /var/lib/algorand/fnet-v1
+Resolved 3 relays
+Got genesis, 225 lines
+Wrote /var/lib/algorand/genesis.json
+Configure: OK
+```
+
+### ./update.sh
+
+#### No changes (local is running latest)
+
+```
+Using data dir: /var/lib/algorand
+Resolved 3 relays
+Got genesis, 225 lines
+Local genesis is up to date b5331ddfd72b7456d35a2868f28d9331 = b5331ddfd72b7456d35a2868f28d9331
+Nothing to do
+```
+
+#### Genesis has changed upstream (local will be reset)
+
+```
+Using data dir: /var/lib/algorand
+Resolved 3 relays
+Got genesis, 225 lines
+Local genesis was 0065cc089647eab78cdf92f066481983, remote was b5331ddfd72b7456d35a2868f28d9331
+New genesis, nuke + restart
+Stopping algod
+Reconfiguring
+Using data dir: /var/lib/algorand
+Deleted /var/lib/algorand/fnet-v1
+Resolved 3 relays
+Got genesis, 225 lines
+Wrote /var/lib/algorand/genesis.json
+Configure: OK
+Starting algod
+Restarted
+```
