@@ -2,8 +2,7 @@
 
 set -e
 
-REAL_LOCATION=$(realpath "$0")
-cd $(dirname "$REAL_LOCATION")
+cd "$(dirname "$(realpath "$0")")"
 
 source common.sh
 
