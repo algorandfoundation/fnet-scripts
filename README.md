@@ -4,17 +4,17 @@
 
 Prerequisite: Set up algorand, preferably via apt repo & systemd
 
-Stop algorand: `sudo systemctl stop algorand`
+Stop algorand: `sudo ./stop.sh`
 
 Run configure: `./configure.sh`
 
-Start: `sudo systemctl start algorand`
+Start: `sudo ./start.sh`
 
 Check genesis ID from goal node `goal node status`
 
-`update.sh` can be used to automate resetting your node along with the neetwork.
+`check-update.sh` can be used to automate resetting your node along with the neetwork.
 
-**⚠️ IF you are not using systemd, you need to adapt `update.sh` to stop and start your node when the network resets**
+**⚠️ IF you are not using systemd, you need to adapt `stop.sh` and `start.sh` to stop and start your node when the network resets**
 
 ## Table of Contents
 
