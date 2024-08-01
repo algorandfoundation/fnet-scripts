@@ -4,18 +4,20 @@ set -e
 
 cd "$(dirname "$(realpath "$0")")"
 
-source common.sh
+LOGPFX=$(basename "$0"):
+
+source utils/_common.sh
 
 PID="$DATA_DIR/algod.pid"
 if [ -f "$PID" ]; then
-    echo "Looks like algod is running. Stop it first"
+    echo "$LOGPFX Looks like algod is running. Stop it first"
     exit 1
 fi
 
 sudo algocfg -d "$DATA_DIR" set -p "DNSBootstrapID" -v "<network>.algorand.green"
 
 sudo rm -rf $DB_DIR
-echo "Deleted $DB_DIR"
+echo "$LOGPFX Deleted $DB_DIR"
 
 genesis_tmp=$(mktemp)
 if get_genesis > "$genesis_tmp"; then
@@ -30,4 +32,4 @@ else
     exit 1
 fi
 
-echo "Configure: OK"
+echo "$LOGPFX OK"
