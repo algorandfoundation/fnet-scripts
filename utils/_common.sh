@@ -17,6 +17,33 @@ export USERGRP=$(stat -c '%G' "$DATA_DIR/genesis.json")
 
 export GOAL_CMD="goal"
 
+EXPECTED_ARCH="x86_64"
+
+if [ "$(uname -i)" != "$EXPECTED_ARCH" ]; then
+    echo "Unexpected architecture, wanted $EXPECTED_ARCH, found $(uname -i)"
+    echo "These scripts only work for x86_64"
+    exit 1
+fi
+
+function confirm_requirements {
+  # check that requirements are installed
+  # override default list by calling with arguments
+  reqs=${@:-curl dig sha256sum md5sum jq tr cut sed shuf wc}
+  echo -n "confirm_requirements: "
+  for req in $reqs; do
+    if ! which "$req" > /dev/null 2>&1; then
+      echo ""
+      echo -e "\nError: '$req' is required but not installed" >&2
+      exit 1
+    else
+      echo -n "$req "
+    fi
+  done
+  echo "OK"
+}
+
+confirm_requirements
+
 function md5 {
     md5sum "$1" | cut -d\  -f1
 }
