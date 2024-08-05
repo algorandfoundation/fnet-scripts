@@ -8,5 +8,14 @@ set -e
 source utils/_common.sh
 
 PID="$DATA_DIR/algod.pid"
-IS_RUNNING=$([ -f "$PID" ])
-exit $IS_RUNNING
+
+if [ ! -f "$PID" ]; then
+    exit 1
+fi
+
+# Is algod booted inside container?
+goal node status > /dev/null 2>&1
+
+# Give a second or two for Sync time to budge from zero
+# if we are not synced
+sleep 1

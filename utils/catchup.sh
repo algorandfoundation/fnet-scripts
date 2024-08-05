@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# Starts fast catchup
 # Relies on nodely, trusting the catchpoint
 
 LOGPFX=$(basename "$0"):

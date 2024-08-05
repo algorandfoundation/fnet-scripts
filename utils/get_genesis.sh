@@ -18,7 +18,7 @@ for relayHostname in $resps; do
     if genesis=$(curl -s "http://$relayHostname:$port/genesis"); then
         echo "$LOGPFX Got genesis, $(echo -e "$genesis" | wc -l) lines" >&2
         echo -e "$genesis"
-        return 0
+        exit 0
     fi
 done
 

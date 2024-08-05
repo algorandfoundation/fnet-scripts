@@ -4,7 +4,7 @@
 # This script will run after an automated reset due to a network reset/genesis change
 # If you want to automate any "network bootstrap" actions such as registering participation keys or funding accounts, you can do this here
 
-# Requirement: schedule /check-update.sh to run on regular intervals
+# Requirement: schedule /auto-update.sh to run on regular intervals
 
 # Example: wait for funds, send keyreg online
 

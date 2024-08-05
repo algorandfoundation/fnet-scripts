@@ -12,7 +12,7 @@ Start: `sudo ./start.sh`
 
 Check genesis ID from goal node `goal node status`
 
-`check-update.sh` can be used to automate resetting your node along with the neetwork.
+`auto-update.sh` can be used to automate resetting your node along with the network.
 
 **⚠️ IF you are not using systemd, you need to adapt `stop.sh` and `start.sh` to stop and start your node when the network resets**
 

@@ -32,17 +32,17 @@ else
     sudo ./stop.sh
 
     echo "$LOGPFX Reconfiguring"
+    # Also updates binary if necessary
     ./configure.sh
-
-    echo "$LOGPFX Checking for updated binary"
-    ./utils/update_binary.sh
 
     echo -n "$LOGPFX Starting algod."
 
+    echo "$LOGPFX Starting node in background"
     # IF NOT USING SYSTEMD: edit start.sh
     sudo ./start.sh
 
-    wait_node_start
+    echo -n "$LOGPFX Waiting for node to start "
+    ./utils/wait_node_start.sh
 
     if ! ./utils/is_node_running.sh; then
         echo -e "\n$LOGPFX ERROR algod failed to start"
@@ -53,23 +53,13 @@ else
 
     # Wait to sync normally, then start fast catchup
     echo "$LOGPFX Waiting 90 seconds for sync. Ctrl+C to skip"
-    # jumping through hoops to make ctrl+c propagate to the timeout cmd
-    trap 'kill -INT -$pid' INT
-    set +e
-    timeout 90 ./utils/wait_sync.sh &
-    pid=$!
-    wait $pid
-    set -e
-    # Undo ctrl+c trap
-    trap - INT
-
-    if ./utils/is_node_syncing.sh; then
-        echo "$LOGPFX Not synced yet, starting fast catchup"
+    if ! ./utils/wait_sync.sh 90; then
+        echo "$LOGPFX Not synced after 90 seconds"
         ./utils/catchup.sh
     fi
 
-    if [ -e "on-automatic-reset.sh" ]; then
-        echo "$LOGPFX Running user bootstrap script on-automatic-reset.sh"
-        exec on-automatic-reset.sh
+    if [ -e "on-network-reset.sh" ]; then
+        echo "$LOGPFX Running user bootstrap script on-network-reset.sh"
+        exec ./on-network-reset.sh
     fi
 fi
