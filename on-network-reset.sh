@@ -16,10 +16,9 @@ source utils/_common.sh
 # EXAMPLES follow               #
 #                               #
 # CHANGE ME AFTER THIS LINE     #
-# and remove exit 0             #
 # --------------8<------------- #
 
-exit 0
+exit 0 # REMOVE ME
 
 # Example KMD commands may fail if your default wallet is password protected. Adapt to your use case.
 

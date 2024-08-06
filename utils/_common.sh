@@ -15,7 +15,9 @@ export USER=$(stat -c '%U' "$DATA_DIR/genesis.json")
 # Group owner of files. Should resolve automatically
 export USERGRP=$(stat -c '%G' "$DATA_DIR/genesis.json")
 
-export GOAL_CMD="goal"
+export GOAL_CMD="goal -d $DATA_DIR"
+
+export ALGORAND_DATA="$DATA_DIR"
 
 EXPECTED_ARCH="x86_64"
 
@@ -29,17 +31,13 @@ function confirm_requirements {
   # check that requirements are installed
   # override default list by calling with arguments
   reqs=${@:-curl dig sha256sum md5sum jq tr cut sed shuf wc}
-  echo -n "confirm_requirements: "
+  # echo -n "confirm_requirements: " >&2
   for req in $reqs; do
     if ! which "$req" > /dev/null 2>&1; then
-      echo ""
-      echo -e "\nError: '$req' is required but not installed" >&2
+      echo "Error: '$req' is required but not installed" >&2
       exit 1
-    else
-      echo -n "$req "
     fi
   done
-  echo "OK"
 }
 
 confirm_requirements
