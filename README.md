@@ -75,7 +75,7 @@ Use this to override values if necessary
 
 Utilities you can use to manage your node or automate the user bootstrap script.
 
-`./utils/catchup.sh` Starts fast catchup, relies on nodely API to get catchpoint
+`./utils/catchup.sh` Starts fast catchup.
 
 `./utils/get_account_eligibility.sh $account` Gets the specified $account's incentives eligibility.
 

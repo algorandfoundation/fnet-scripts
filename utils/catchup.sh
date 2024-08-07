@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 # Starts fast catchup
-# Relies on nodely, trusting the catchpoint
 
 LOGPFX=$(basename "$0"):
 cd "$(dirname "$(realpath "$0")")/.."
@@ -17,7 +16,7 @@ fi
 
 # Check genesis hash
 LOCAL_GH=$($GOAL_CMD node status | grep "Genesis hash: " | cut -d\  -f3 | tr -d '\r')
-REMOTE_GH=$(curl -s 'https://fnet-api.4160.nodely.io/v2/transactions/params' | jq -r '.["genesis-hash"]')
+REMOTE_GH=$(curl -s 'https://fnet-api.d13.co/v2/transactions/params' | jq -r '.["genesis-hash"]')
 
 if [ "$LOCAL_GH" != "$REMOTE_GH" ]; then
     echo "$LOGPFX Genesis hashes do not match"
@@ -27,7 +26,7 @@ if [ "$LOCAL_GH" != "$REMOTE_GH" ]; then
     exit 1
 fi
 
-LAST_CP=$(curl -s https://fnet-api.4160.nodely.io/v2/status | jq -r '.["last-catchpoint"] // ""')
+LAST_CP=$(curl -s https://fnet-api.d13.co/v2/status | jq -r '.["last-catchpoint"] // ""')
 
 if [[ "$LAST_CP" != "" ]]; then
     echo "$LOGPFX Catching up using $LAST_CP"
