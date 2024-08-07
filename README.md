@@ -77,6 +77,8 @@ Utilities you can use to manage your node or automate the user bootstrap script.
 
 `./utils/catchup.sh` Starts fast catchup, relies on nodely API to get catchpoint
 
+`./utils/get_account_eligibility.sh $account` Gets the specified $account's incentives eligibility.
+
 `./utils/get_balance.sh $account` Gets microALGO balance of account `$account` through local node
 
 `./utils/get_genesis.sh` Fetches latest genesis file from a relay
