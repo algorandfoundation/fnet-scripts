@@ -12,15 +12,17 @@ Note: A dockerized flavor of this repo is available [here](https://github.com/al
 
 ## Fnet algod setup
 
-1) Prerequisite: Set up algod, e.g. via `apt install -y algorand`
+1) Prerequisite: Set up algod, e.g. via `apt install -y algorand`.
 
-2) Update start.sh and stop.sh if necessary: These assume that systemd is managing the node, and specifically the command `systemctl start algorand`. If this is not the case on your system, update these files.
+2) Disable automatic updates. For `apt`, you can mark the package as non-upgradable with `sudo apt-mark hold algorand`. (If you later want to stop running fnet algod and want to mark it as upgradable again, use `sudo apt-mark unhold algorand`)
 
-3) Stop algod: `sudo ./stop.sh`
+3) Update start.sh and stop.sh if necessary: These assume that systemd is managing the node, and specifically the command `systemctl start algorand`. If this is not the case on your system, update these files.
 
-4) Run configure: `./configure.sh` - configure local binaries, genesis, config. See below.
+4) Stop algod: `sudo ./stop.sh`
 
-5) Start algod: `sudo ./start.sh`
+5) Run configure: `./configure.sh` - configure local binaries, genesis, config. See below.
+
+6) Start algod: `sudo ./start.sh`
 
 ## Automatic Updates
 
