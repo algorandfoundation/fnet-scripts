@@ -20,6 +20,8 @@ echo -n "$LOGPFX Waiting"
 
 trap 'exit 1' INT
 
+sleep 5
+
 START=$(date +%s)
 while ./utils/is_node_syncing.sh; do
     if [[ "$TIMEOUT" != "" ]]; then
@@ -30,7 +32,7 @@ while ./utils/is_node_syncing.sh; do
         fi
     fi
     echo -n "."
-    sleep 3
+    sleep 2
 done
 
 echo ""

@@ -13,7 +13,9 @@ if ./utils/is_node_running.sh; then
     exit 1
 fi
 
-./utils/update_binary.sh
+if ./utils/update_binary.sh; then
+    echo "$LOGPFX Updated binary"
+fi
 
 sudo algocfg -d "$DATA_DIR" set -p "DNSBootstrapID" -v "<network>.algorand.green"
 

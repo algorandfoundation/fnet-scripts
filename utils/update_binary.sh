@@ -21,6 +21,9 @@ trap 'rm -rf "$TMPDIR"' EXIT
 
 echo "$LOGPFX downloading SHA256SUMS"
 
+UPDATED=0
+UPDATED_NAMES=()
+
 TMPFILE_SHA="$TMPDIR/SHA256SUMS"
 curl -sf "$SHASUMS_URL" -o "$TMPFILE_SHA"
 
@@ -28,7 +31,7 @@ for file in algod goal; do
     LATEST_SHA=$(grep $file "$TMPFILE_SHA" | cut -d\  -f1)
     echo "$LOGPFX Latest $file: $LATEST_SHA"
 
-    BINARY_PATH=$(which $file)
+    BINARY_PATH=$(sudo which "$file")
 
     CURRENT_SHA=$(sha256 "$BINARY_PATH")
     echo "$LOGPFX Installed $file: $CURRENT_SHA"
@@ -45,10 +48,8 @@ for file in algod goal; do
         DOWNLOADED_SHA=$(sha256 "$TMPFILE_BINARY")
         if [[ "$DOWNLOADED_SHA" = "$LATEST_SHA" ]]; then
             echo "$LOGPFX SHA256 hash verified."
-            echo "$LOGPFX Installing to $BINARY_PATH"
-            sudo cp "$TMPFILE_BINARY" "$BINARY_PATH"
-            sudo chown "$USER:$USERGRP" "$BINARY_PATH"
-            sudo chmod 755 "$BINARY_PATH"
+            UPDATED_NAMES+=("$file")
+            UPDATED=$(( UPDATED + 1 ))
         else
             echo -e "$LOGPFX ERROR: Incorrect $file hash.\nExpected: $LATEST_SHA\nFound: $DOWNLOADED_SHA"
             echo "$LOGPFX Files left in $TMPDIR"
@@ -59,4 +60,20 @@ for file in algod goal; do
     fi
 done
 
-echo "$LOGPFX OK"
+if [ $UPDATED -gt 0 ]; then
+    echo "$LOGPFX Updates available, stopping node"
+    sudo ./stop.sh
+    for file in "${UPDATED_NAMES[@]}"; do
+        TMPFILE_BINARY="$TMPDIR/$file"
+        BINARY_PATH=$(sudo which "$file")
+        echo "$LOGPFX Installing $file to $BINARY_PATH"
+        sudo cp "$TMPFILE_BINARY" "$BINARY_PATH"
+        sudo chown "$USER:$USERGRP" "$BINARY_PATH"
+        sudo chmod 755 "$BINARY_PATH"
+    done
+    echo "$LOGPFX Updated OK"
+    exit 0
+fi
+
+echo "$LOGPFX OK, No updates"
+exit 2
