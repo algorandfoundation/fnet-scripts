@@ -26,7 +26,7 @@ if [ "$LOCAL_GH" != "$REMOTE_GH" ]; then
     exit 1
 fi
 
-LAST_CP=$(curl -s https://fnet-api.d13.co/v2/status | jq -r '.["last-catchpoint"] // ""')
+LAST_CP=$(curl -s "https://fnet-catchpoints.algorand.green/latest" | sed 's/\r//')
 
 if [[ "$LAST_CP" != "" ]]; then
     echo "$LOGPFX Catching up using $LAST_CP"
