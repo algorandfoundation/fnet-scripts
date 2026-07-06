@@ -2,7 +2,7 @@
 
 ## Overview 
 
-A set of scripts to configure and manage a local **Linux/X86_64** algod for [fnet](https://fnet.algorand.green/).
+A set of scripts to configure and manage a local **Linux/X86_64** algod for [fnet](https://fnet.algorand.tech/).
 
 The Fnet network will be reset periodically. The scripts support automatically resetting the node to follow along with the new network.
 
@@ -89,7 +89,7 @@ Utilities you can use to manage your node or automate the user bootstrap script.
 
 `./utils/is_node_syncing.sh` Exits successfully if node is syncing
 
-`update_binary.sh` If required, update `algod` and `goal` binaries from `fnet.algorand.green`. Validates SHA256SUMS.
+`update_binary.sh` If required, update `algod` and `goal` binaries from `fnet.algorand.tech`. Validates SHA256SUMS.
 
 `./utils/wait_for_balance.sh $account $amount` Waits until account `$account` has a balance of at least `$amount`
 

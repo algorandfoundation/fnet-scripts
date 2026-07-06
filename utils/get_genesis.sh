@@ -7,7 +7,7 @@ set -e
 
 source utils/_common.sh
 
-bootstrap=_algobootstrap._tcp.fnet.algorand.green
+bootstrap=_algobootstrap._tcp.fnet.algorand.tech
 port=8184
 
 resps=$(dig +short srv $bootstrap | cut -d\  -f4 | sed 's/\.$//' | shuf)

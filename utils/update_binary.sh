@@ -13,8 +13,8 @@ sudo echo "" > /dev/null
 
 mkdir -p tmp
 
-SHASUMS_URL="https://fnet.algorand.green/static/SHA256SUMS"
-DOWNLOAD_URL_PREFIX="https://fnet.algorand.green/static"
+SHASUMS_URL="https://fnet.algorand.tech/static/SHA256SUMS"
+DOWNLOAD_URL_PREFIX="https://fnet.algorand.tech/static"
 
 TMPDIR=$(realpath $(mktemp -p tmp -d -t update_binary-XXXXXX))
 trap 'rm -rf "$TMPDIR"' EXIT

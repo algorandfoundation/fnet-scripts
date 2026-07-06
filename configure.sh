@@ -17,7 +17,7 @@ if ./utils/update_binary.sh; then
     echo "$LOGPFX Updated binary"
 fi
 
-sudo algocfg -d "$DATA_DIR" set -p "DNSBootstrapID" -v "<network>.algorand.green"
+sudo algocfg -d "$DATA_DIR" set -p "DNSBootstrapID" -v "<network>.algorand.tech"
 
 sudo rm -rf $DB_DIR
 echo "$LOGPFX Deleted $DB_DIR"
